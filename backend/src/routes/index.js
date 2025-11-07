@@ -23,7 +23,6 @@ router.get('/example', async (req, res) => {
 });
 
 // ENDPOINTS DE PRUEBA PARA DB
-// Crear producto (POST /api/productos)
 router.post('/productos', async (req, res) => {
   try {
     const data = req.body;
@@ -34,7 +33,6 @@ router.post('/productos', async (req, res) => {
   }
 });
 
-// Listar productos (GET /api/productos)
 router.get('/productos', async (req, res) => {
   try {
     const result = await mediator.send({ type: 'ListProductos' });
@@ -44,7 +42,7 @@ router.get('/productos', async (req, res) => {
   }
 });
 
-// Endpoint rápido de test (crea un producto y lista)
+// Endpoint rápido de test
 router.get('/db-test', async (req, res) => {
   try {
     const p = await mediator.send({
@@ -57,5 +55,9 @@ router.get('/db-test', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// 🔹 Importar rutas de autenticación
+const authRoutes = require('./auth.routes'); // Ajusta si tu archivo se llama auth.routes.js
+router.use('/auth', authRoutes); // Monta /api/auth/login
 
 module.exports = router;
