@@ -1,36 +1,48 @@
+// backend/src/models/product.model.js
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../lib/sequelize');
 
 const Producto = sequelize.define('Producto', {
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.BIGINT.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
   },
   nombre: {
-    type: DataTypes.STRING(200),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   categoria: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  cantidad: {
+  unidad: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'Kg',
+  },
+  stock_actual: {
     type: DataTypes.FLOAT,
     allowNull: false,
     defaultValue: 0,
   },
-  unidad: {
-    type: DataTypes.STRING(50),
-    allowNull: true,
+  stock_minimo: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    defaultValue: 10,
   },
-  precio_sugerido: {
-    type: DataTypes.DECIMAL(10,2),
-    allowNull: true,
+  precio_promedio: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  activo: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
   },
 }, {
   tableName: 'productos',
-  timestamps: true
+  timestamps: true,
 });
 
 module.exports = Producto;

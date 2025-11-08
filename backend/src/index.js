@@ -14,14 +14,15 @@ app.use(express.json());
 // ✅ Importar modelos
 require('./models/usuario.model');
 require('./models/product.model');
+require('./models/movimientoInventario.model');
 
-// ✅ Rutas generales (auth, productos, etc.)
-const routes = require('./routes');
-app.use('/api', routes);
+// ✅ Rutas
+app.use('/api/auth', require('./routes/auth.routes'));        // Login / Register
+app.use('/api/usuarios', require('./routes/usuario.routes')); // CRUD de usuarios
+app.use('/api/inventario', require('./routes/inventario.routes')); // Inventario y movimientos
 
-// ✅ Rutas específicas para usuarios (CRUD admin)
-const usuarioRoutes = require('./routes/usuario.routes');
-app.use('/api/usuarios', usuarioRoutes);
+// ⚙️ Rutas adicionales si las usas (por ejemplo productos, health, etc.)
+app.use('/api', require('./routes')); // Esto puede quedar al final si "routes/index.js" tiene otras rutas
 
 const PORT = process.env.BACKEND_PORT || 4000;
 
@@ -38,12 +39,12 @@ async function start() {
     await sequelize.sync({ alter: true });
     console.log('✅ Modelos sincronizados.');
 
-    // 3️⃣ Crear admin si no existe
+    // 3️⃣ Crear usuario admin si no existe
     await createAdminUser();
 
-    // 4️⃣ Levantar servidor
+    // 4️⃣ Levantar el servidor
     app.listen(PORT, () => {
-      console.log(`🚀 Servidor backend escuchando en puerto ${PORT}`);
+      console.log(`🚀 Servidor backend escuchando en el puerto ${PORT}`);
     });
   } catch (error) {
     console.error('❌ Error al iniciar el backend:', error);
