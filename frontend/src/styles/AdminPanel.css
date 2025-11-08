@@ -1,0 +1,26 @@
+.admin-panel {
+  max-width: 900px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.usuarios-table th, .usuarios-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}

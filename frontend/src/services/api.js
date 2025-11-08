@@ -1,11 +1,23 @@
 // frontend/src/services/api.js
 import axios from 'axios';
 
-// Asegúrate que esta URL venga del entorno o use localhost:4000/api por defecto
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:4000/api',
+  baseURL: API_BASE,
   timeout: 5000,
 });
 
-// Exportación directa del cliente axios
+// ✅ Interceptor para agregar token automáticamente
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 export default api;

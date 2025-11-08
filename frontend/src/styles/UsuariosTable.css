@@ -1,0 +1,73 @@
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.usuarios-table th {
+  background-color: #b33a2c;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 12px;
+}
+
+.usuarios-table td {
+  padding: 10px;
+  border-bottom: 1px solid #f0e7da;
+  color: #4a3b2c;
+}
+
+.usuarios-table tr:nth-child(even) {
+  background-color: #fffaf0;
+}
+
+.usuarios-table tr:hover {
+  background-color: #f9e8d7;
+  transition: 0.3s;
+}
+
+/* Botones de acción */
+.btn-edit,
+.btn-delete {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-edit {
+  background-color: #7a2a18;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #9c3a26;
+}
+
+.btn-delete {
+  background-color: #b33a2c;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #d74a3a;
+}
+
+/* Íconos de activo */
+.active-icon {
+  color: #48bb78;
+  font-size: 1.2rem;
+}
+
+.inactive-icon {
+  color: #e53e3e;
+  font-size: 1.2rem;
+}
