@@ -2,21 +2,23 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./lib/sequelize');
-const { createAdminUser } = require('./seeders/createAdmin'); 
+const { createAdminUser } = require('./seeders/createAdmin');
 
 const app = express();
-
-// Middleware
+-
 app.use(cors());
 app.use(express.json());
 
-// Importar modelos
+
 require('./models/usuario.model');
 require('./models/product.model');
 
-// Rutas
-const routes = require('./routes'); // Esto cargará ./routes/index.js
+const routes = require('./routes'); // Rutas generales (auth, productos, etc.)
 app.use('/api', routes);
+
+// ✅ Agregar ruta específica para usuarios
+const usuarioRoutes = require('./routes/usuario.routes');
+app.use('/api/usuarios', usuarioRoutes);
 
 const PORT = process.env.BACKEND_PORT || 4000;
 
@@ -24,14 +26,18 @@ async function start() {
   try {
     console.log('🟡 Iniciando servidor...');
 
+    // 1️⃣ Conectar a la base de datos
     await sequelize.authenticate();
     console.log('✅ Conexión a la base de datos establecida.');
 
+    // 2️⃣ Sincronizar los modelos
     await sequelize.sync({ alter: true });
     console.log('✅ Modelos sincronizados.');
 
+    // 3️⃣ Crear usuario admin (si no existe)
     await createAdminUser();
 
+    // 4️⃣ Levantar el servidor
     app.listen(PORT, () => {
       console.log(`🚀 Servidor backend escuchando en el puerto ${PORT}`);
     });
