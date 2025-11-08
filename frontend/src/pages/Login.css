@@ -1,0 +1,32 @@
+/* frontend/src/pages/Login.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #f8f1e4 0%, #fffaf0 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-card {
+  width: 360px;
+  background: white;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.login-card h2 { margin-bottom: 18px; color: #7a2a18; }
+.login-card label { display:block; text-align:left; margin:8px 0 4px; color:#6b4432; font-weight:600; }
+.login-card input {
+  width:100%; padding:10px; border:1px solid #e6dcd3; border-radius:8px;
+  margin-bottom:12px; box-sizing: border-box;
+}
+.login-card button{
+  width:100%; padding:10px; background:#b33a2c; color:white; border:none; border-radius:8px; cursor:pointer;
+  font-weight:600; margin-top:8px;
+}
+.login-card button:hover{ opacity:0.95; }
