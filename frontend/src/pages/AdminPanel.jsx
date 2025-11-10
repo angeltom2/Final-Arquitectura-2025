@@ -3,13 +3,15 @@ import Swal from "sweetalert2";
 import api from "../services/api";
 import UsuariosTable from "../components/UsuariosTable";
 import UsuarioForm from "../components/UsuariosForm";
+import Inventario from "../pages/Inventario"; // 👈 Importamos la vista de inventario
 import "../styles/AdminPanel.css";
 
 export default function AdminPanel() {
   const [usuarios, setUsuarios] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
+  const [activeSection, setActiveSection] = useState("usuarios");
 
-  // 🧩 Cargar usuarios al entrar
+  // 🧩 Cargar usuarios
   const fetchUsuarios = async () => {
     try {
       const res = await api.get("/usuarios");
@@ -20,8 +22,8 @@ export default function AdminPanel() {
   };
 
   useEffect(() => {
-    fetchUsuarios();
-  }, []);
+    if (activeSection === "usuarios") fetchUsuarios();
+  }, [activeSection]);
 
   // 📝 Crear o actualizar usuario
   const handleSave = async (data) => {
@@ -63,19 +65,78 @@ export default function AdminPanel() {
     }
   };
 
+  // 🚪 Cerrar sesión con confirmación
+  const handleLogout = async () => {
+    const confirm = await Swal.fire({
+      title: "¿Desea cerrar sesión?",
+      text: "Tendrá que iniciar sesión nuevamente para acceder al panel.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, salir",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#b33a2c",
+      cancelButtonColor: "#999",
+    });
+
+    if (confirm.isConfirmed) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      Swal.fire({
+        title: "Sesión cerrada",
+        text: "Hasta pronto 👋",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      setTimeout(() => (window.location.href = "/"), 1500);
+    }
+  };
+
   return (
-    <div className="admin-panel">
-      <h1>Panel de Administración</h1>
-      <UsuarioForm
-        onSave={handleSave}
-        editingUser={editingUser}
-        setEditingUser={setEditingUser}
-      />
-      <UsuariosTable
-        usuarios={usuarios}
-        onEdit={setEditingUser}
-        onDelete={handleDelete}
-      />
+    <div className="admin-layout">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <h2 className="sidebar-title">Admin</h2>
+        <ul>
+          <li
+            className={activeSection === "usuarios" ? "active" : ""}
+            onClick={() => setActiveSection("usuarios")}
+          >
+            👤 Gestión de Usuarios
+          </li>
+          <li
+            className={activeSection === "inventario" ? "active" : ""}
+            onClick={() => setActiveSection("inventario")}
+          >
+            📦 Gestión de Inventario
+          </li>
+        </ul>
+
+        <button className="logout-btn" onClick={handleLogout}>
+          🚪 Cerrar Sesión
+        </button>
+      </aside>
+
+      {/* Contenido principal */}
+      <main className="main-content">
+        {activeSection === "usuarios" && (
+          <>
+            <h1>👥 Gestión de Usuarios</h1>
+            <UsuarioForm
+              onSave={handleSave}
+              editingUser={editingUser}
+              setEditingUser={setEditingUser}
+            />
+            <UsuariosTable
+              usuarios={usuarios}
+              onEdit={setEditingUser}
+              onDelete={handleDelete}
+            />
+          </>
+        )}
+
+        {activeSection === "inventario" && <Inventario />}
+      </main>
     </div>
   );
 }

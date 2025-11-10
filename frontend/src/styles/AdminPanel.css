@@ -1,26 +1,63 @@
-.admin-panel {
-  max-width: 900px;
-  margin: 2rem auto;
-  text-align: center;
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: #fffaf0;
 }
 
-.usuarios-table {
-  width: 100%;
-  border-collapse: collapse;
+.sidebar {
+  width: 230px;
+  background: #fff8ef;
+  border-right: 2px solid #f1e2d2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
 }
 
-.usuarios-table th, .usuarios-table td {
-  border: 1px solid #ddd;
+.sidebar-title {
+  font-size: 1.5rem;
+  color: #7a2a18;
+  margin-bottom: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #6b4432;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+  background: #f7d4b6;
+  color: #7a2a18;
+}
+
+.logout-btn {
+  background: #b33a2c;
+  color: white;
   padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.btn-edit {
-  background-color: #007bff;
-  color: white;
-  margin-right: 5px;
+.logout-btn:hover {
+  opacity: 0.9;
 }
 
-.btn-delete {
-  background-color: #dc3545;
-  color: white;
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
 }

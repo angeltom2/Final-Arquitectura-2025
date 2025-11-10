@@ -1,43 +1,53 @@
 // frontend/src/pages/Login.jsx
-import React, { useState, useContext } from 'react';
-import api from '../services/api';
-import Swal from 'sweetalert2';
-import AuthContext from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import './Login.css'; // crea un CSS pequeño si quieres
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import api from "../services/api";
+import "../pages/Login.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [contraseña, setContraseña] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/auth/login', { email, "contraseña": password }); // ✅ BIEN (con comillas)
-      const { token, usuario } = res.data;
-      login(token, usuario);
-      await Swal.fire({ icon: 'success', title: 'Bienvenido', text: `Hola ${usuario.nombre}` });
-      // redirige según rol (por ahora admin)
-      if (usuario.rol === 'admin') navigate('/admin');
-      else navigate('/');
-    } catch (err) {
-      const message = err?.response?.data?.message || 'Error al iniciar sesión';
-      Swal.fire({ icon: 'error', title: 'Login fallido', text: message });
+      const res = await api.post("/auth/login", { email, contraseña });
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.usuario));
+      Swal.fire("Bienvenido", "Inicio de sesión exitoso", "success");
+      navigate("/admin");
+    } catch {
+      Swal.fire("Error", "Credenciales incorrectas", "error");
     }
   };
 
   return (
     <div className="login-page">
       <div className="login-card">
-        <h2>Iniciar sesión</h2>
+        <div className="logo-container">
+          <img src="../logos/LogoLogin.png" alt="Logo Konrad Gourmet" className="logo" />
+        </div>
+
+        <h3 className="login-title">Iniciar Sesión</h3>
+
         <form onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
-          <label>Contraseña</label>
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" required />
-          <button type="submit">Entrar</button>
+          <input
+            type="email"
+            placeholder="Usuario"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={contraseña}
+            onChange={(e) => setContraseña(e.target.value)}
+            required
+          />
+          <button type="submit">Iniciar Sesión</button>
         </form>
       </div>
     </div>

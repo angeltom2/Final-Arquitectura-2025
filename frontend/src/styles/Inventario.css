@@ -1,0 +1,90 @@
+.inventario-container {
+  background: #fffaf0;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  color: #4a3b2c;
+}
+
+.inventario-container h1 {
+  color: #7a2a18;
+  margin-bottom: 1rem;
+}
+
+.inventario-section {
+  margin-top: 25px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.inventario-section h2 {
+  color: #b33a2c;
+  margin-bottom: 15px;
+}
+
+.inventario-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.inventario-form input,
+.inventario-form select {
+  flex: 1;
+  min-width: 180px;
+  padding: 10px;
+  border: 1px solid #e6dcd3;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.inventario-form button {
+  background: #7a2a18;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.inventario-form button:hover {
+  background: #9c3a26;
+}
+
+/* Tabla */
+.inventario-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.inventario-table th {
+  background-color: #b33a2c;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.inventario-table td {
+  padding: 10px;
+  border-bottom: 1px solid #f0e7da;
+}
+
+.low-stock {
+  background-color: #ffe6e6;
+}
+
+.ok-stock {
+  background-color: #fff;
+}
+
+.low-stock td {
+  color: #b33a2c;
+  font-weight: bold;
+}
