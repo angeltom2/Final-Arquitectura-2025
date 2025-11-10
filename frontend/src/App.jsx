@@ -1,32 +1,70 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import Login from './pages/Login';
-import AdminPanel from './pages/AdminPanel'; // ✅ tu panel real
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import AdminPanel from "./pages/AdminPanel";
+import JefeCocinaPanel from "./pages/JefeCocinaPanel";
+import MeseroPanel from "./pages/MeseroPanel";
+import AuxComprasPanel from "./pages/AuxComprasPanel";
+import DirectorComercialPanel from "./pages/DirectorComercialPanel";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function RequireAuth({ children }) {
-  const token = localStorage.getItem('token');
-  if (!token) return <Navigate to="/login" replace />;
-  return children;
-}
-
-export default function App() {
+function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/admin"
-            element={
-              <RequireAuth>
-                <AdminPanel /> {/* ✅ aquí carga tu verdadero panel */}
-              </RequireAuth>
-            }
-          />
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+
+        {/* ADMIN */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* JEFE DE COCINA */}
+        <Route
+          path="/jefe-cocina"
+          element={
+            <ProtectedRoute allowedRoles={["jefe_cocina", "admin"]}>
+              <JefeCocinaPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* MESERO */}
+        <Route
+          path="/mesero"
+          element={
+            <ProtectedRoute allowedRoles={["mesero", "admin"]}>
+              <MeseroPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* AUXILIAR DE COMPRAS */}
+        <Route
+          path="/aux-compras"
+          element={
+            <ProtectedRoute allowedRoles={["aux_compras", "admin"]}>
+              <AuxComprasPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* DIRECTOR COMERCIAL */}
+        <Route
+          path="/director-comercial"
+          element={
+            <ProtectedRoute allowedRoles={["director_comercial", "admin"]}>
+              <DirectorComercialPanel />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;
