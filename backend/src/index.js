@@ -7,47 +7,46 @@ const { createAdminUser } = require('./seeders/createAdmin');
 
 const app = express();
 
-// ✅ Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ Importar modelos
+// Importar modelos
 require('./models/usuario.model');
 require('./models/product.model');
 require('./models/movimientoInventario.model');
+require('./models/solicitud.model'); // 👈 IMPORTANTE
 
-// ✅ Rutas
-app.use('/api/auth', require('./routes/auth.routes'));        // Login / Register
-app.use('/api/usuarios', require('./routes/usuario.routes')); // CRUD de usuarios
-app.use('/api/inventario', require('./routes/inventario.routes')); // Inventario y movimientos
+// Rutas principales
+app.use('/api/auth', require('./routes/auth.routes'));        // Login
+app.use('/api/usuarios', require('./routes/usuario.routes')); // CRUD usuarios
+app.use('/api/inventario', require('./routes/inventario.routes')); // Inventario
+app.use('/api/solicitudes', require('./routes/solicitud.routes')); // 👈 NUEVO
 
-// ⚙️ Rutas adicionales si las usas (por ejemplo productos, health, etc.)
-app.use('/api', require('./routes')); // Esto puede quedar al final si "routes/index.js" tiene otras rutas
+// Rutas adicionales (ej: health)
+app.use('/api', require('./routes'));
 
 const PORT = process.env.BACKEND_PORT || 4000;
 
-// 🚀 Función principal
+// Iniciar servidor
 async function start() {
   try {
-    console.log('🟡 Iniciando servidor...');
+    console.log('🟡 Iniciando backend...');
 
-    // 1️⃣ Conectar a la base de datos
     await sequelize.authenticate();
-    console.log('✅ Conexión a la base de datos establecida.');
+    console.log('✅ Conexión a la DB establecida.');
 
-    // 2️⃣ Sincronizar modelos
     await sequelize.sync({ alter: true });
-    console.log('✅ Modelos sincronizados.');
+    console.log('🔄 Modelos sincronizados.');
 
-    // 3️⃣ Crear usuario admin si no existe
     await createAdminUser();
+    console.log('👑 Admin verificado.');
 
-    // 4️⃣ Levantar el servidor
     app.listen(PORT, () => {
-      console.log(`🚀 Servidor backend escuchando en el puerto ${PORT}`);
+      console.log(`🚀 Servidor backend corriendo en puerto ${PORT}`);
     });
   } catch (error) {
-    console.error('❌ Error al iniciar el backend:', error);
+    console.error('❌ Error al iniciar backend:', error);
     process.exit(1);
   }
 }
