@@ -1,7 +1,7 @@
 // backend/src/models/usuario.model.js
 const { DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
 const { sequelize } = require('../lib/sequelize');
+const bcrypt = require('bcrypt');
 
 const Usuario = sequelize.define('Usuario', {
   id: {
@@ -44,19 +44,13 @@ const Usuario = sequelize.define('Usuario', {
   }
 }, {
   tableName: 'usuarios',
-  timestamps: true,
-  hooks: {
-    // Antes de crear, encripta la contraseña
-    beforeCreate: async (user) => {
-      const salt = await bcrypt.genSalt(10);
-      user.password_hash = await bcrypt.hash(user.password_hash, salt);
-    }
-  }
+  timestamps: true
 });
 
-// Método personalizado para validar contraseña
+// Método para validar contraseña
 Usuario.prototype.validarPassword = async function (password) {
   return bcrypt.compare(password, this.password_hash);
 };
 
 module.exports = Usuario;
+

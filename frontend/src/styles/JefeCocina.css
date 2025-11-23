@@ -1,0 +1,156 @@
+/* Layout general */
+.chef-layout {
+  display: flex;
+  height: 100vh;
+  background: #fffaf0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Sidebar */
+.chef-sidebar {
+  width: 230px;
+  background: #fff8ef;
+  border-right: 2px solid #f1e2d2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.chef-title {
+  font-size: 1.5rem;
+  color: #7a2a18;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.chef-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.chef-sidebar li {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #6b4432;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.chef-sidebar li:hover,
+.chef-sidebar li.active {
+  background: #f7d4b6;
+  color: #7a2a18;
+}
+
+/* Logout */
+.logout-btn {
+  background: #b33a2c;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}
+
+/* Contenido */
+.chef-main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* Tabla */
+.chef-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chef-table th {
+  background: #7a2a18;
+  color: white;
+  padding: 12px;
+}
+
+.chef-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.low {
+  background: #ffe0e0 !important;
+}
+
+/* Formulario */
+.chef-form {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.producto-row {
+  display: flex;
+  gap: 10px;
+}
+
+.producto-row input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d8c6b6;
+}
+
+.remove-btn {
+  background: #b33a2c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  opacity: 0.8;
+}
+
+.add-btn {
+  padding: 10px 14px;
+  background: #7a2a18;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.submit-btn {
+  padding: 12px;
+  background: #b33a2c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #992b20;
+}
+
+/* Estados */
+.estado.pendiente { color: #7a2a18; font-weight: bold; }
+.estado.aprobada { color: green; font-weight: bold; }
+.estado.rechazada { color: red; font-weight: bold; }
+.estado.completada { color: blue; font-weight: bold; }

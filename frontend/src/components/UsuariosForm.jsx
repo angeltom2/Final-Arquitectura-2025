@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import "../styles/UsuarioForm.css";
 
 export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
@@ -10,7 +11,6 @@ export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
     activo: true,
   });
 
-  // 🔄 Sincroniza el formulario con el usuario seleccionado
   useEffect(() => {
     if (editingUser) {
       setForm({
@@ -41,6 +41,26 @@ export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // 📌 VALIDACIÓN #1: Email con @
+    if (!form.email.includes("@")) {
+      return Swal.fire({
+        icon: "error",
+        title: "Email inválido",
+        text: "El correo debe contener un '@'.",
+      });
+    }
+
+    // 📌 VALIDACIÓN #2: Contraseña mínimo 6 caracteres (solo al crear)
+    if (!editingUser && form.contraseña.length < 6) {
+      return Swal.fire({
+        icon: "error",
+        title: "Contraseña demasiado corta",
+        text: "La contraseña debe tener al menos 6 caracteres.",
+      });
+    }
+
+    // Si todo está bien ✔
     onSave(form);
   };
 
@@ -55,6 +75,7 @@ export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
         placeholder="Nombre"
         required
       />
+
       <input
         name="email"
         type="email"
@@ -63,6 +84,7 @@ export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
         placeholder="Email"
         required
       />
+
       {!editingUser && (
         <input
           name="contraseña"
@@ -73,6 +95,7 @@ export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
           required
         />
       )}
+
       <select name="rol" value={form.rol} onChange={handleChange} required>
         <option value="">Selecciona un rol</option>
         <option value="jefe_cocina">Jefe de Cocina</option>
@@ -98,9 +121,8 @@ export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
       )}
 
       <div className="buttons">
-        <button type="submit">
-          {editingUser ? "Actualizar" : "Crear"}
-        </button>
+        <button type="submit">{editingUser ? "Actualizar" : "Crear"}</button>
+
         {editingUser && (
           <button type="button" onClick={() => setEditingUser(null)}>
             Cancelar
