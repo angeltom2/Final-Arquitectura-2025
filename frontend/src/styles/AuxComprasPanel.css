@@ -1,0 +1,166 @@
+/* AuxComprasPanel.css - paleta coherente con Admin pero identidad propia */
+
+:root{
+  --bg: #fffaf0;
+  --panel: #fff5eb;
+  --accent: #7a2a18;     /* marrón oscuro */
+  --accent-2: #b33a2c;   /* rojo para acciones */
+  --muted: #6b4432;
+  --highlight: #f7d4b6;
+  --border: #e7dbcf;
+  --card: #fffdf9;
+}
+
+/* Layout */
+.aux-layout {
+  display: flex;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+}
+
+/* Sidebar */
+.aux-sidebar {
+  width: 260px;
+  background: var(--panel);
+  border-right: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 20px;
+}
+
+.aux-sidebar-title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.aux-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.aux-sidebar li {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.18s;
+  background: transparent;
+}
+
+.aux-sidebar li:hover{
+  transform: translateX(4px);
+}
+
+.aux-sidebar li.active {
+  background: var(--highlight);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Sidebar footer */
+.aux-sidebar-footer {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.aux-logout-btn {
+  background: var(--accent-2);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+}
+
+.aux-logout-btn:hover { opacity: 0.95; }
+
+.aux-small-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Main content */
+.aux-main-content {
+  flex: 1;
+  padding: 28px;
+  overflow-y: auto;
+}
+
+/* Headers & cards */
+.aux-header h1 {
+  margin: 0 0 6px 0;
+  color: var(--accent);
+}
+.aux-sub { margin: 0 0 18px 0; color: #7b5a49; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+/* Form */
+.aux-form { display: flex; flex-direction: column; gap: 16px; }
+
+.row { display:flex; gap:12px; align-items:flex-end; }
+.col { flex:1; display:flex; flex-direction:column; gap:8px; }
+
+.aux-form label { color: #6b4b3a; font-weight:600; font-size:0.95rem; }
+.aux-form input[type="text"],
+.aux-form input[type="date"],
+.aux-form input[type="number"],
+.aux-form select,
+.aux-form textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: white;
+  font-size: 0.95rem;
+}
+
+/* Productos */
+.aux-products { margin-top: 6px; display:flex; flex-direction:column; gap:10px; }
+.products-header { display:flex; justify-content:space-between; align-items:center; }
+.card-sm { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px; border-radius:8px; background:#fff; border:1px solid var(--border); }
+
+.prod-left { display:flex; flex-direction:column; gap:8px; flex:1; }
+.prod-meta { display:flex; gap:8px; align-items:center; }
+.prod-meta input { width:120px; }
+.prod-meta select { width:120px; }
+
+/* Buttons */
+.aux-add-btn { background: var(--accent); color:#fff; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:700; }
+.aux-remove-btn { background: transparent; color: var(--accent-2); border:1px solid #f2cfc8; padding:6px 8px; border-radius:6px; cursor:pointer; font-weight:700; }
+
+.aux-submit-btn { background: var(--accent); color: white; padding: 10px 14px; border-radius: 8px; border:none; cursor:pointer; font-weight:700; }
+.aux-secondary-btn { background: transparent; border:1px solid var(--border); padding:10px 12px; border-radius:8px; cursor:pointer; margin-left:10px; }
+
+/* Table */
+.aux-table { width:100%; border-collapse: collapse; margin-top:8px; font-size:0.95rem; }
+.aux-table th, .aux-table td { border:1px solid var(--border); padding:10px; text-align:left; }
+.aux-table th { background: var(--highlight); color: var(--accent); font-weight:700; }
+.muted { color:#8b6f61; text-align:center; padding:14px; }
+
+/* Detail row */
+.detail-row td { background: #fff; border-top:0; padding:0; }
+.detail-card { padding:12px 18px; }
+
+/* Small utilities */
+.form-actions { display:flex; justify-content:flex-start; gap:10px; margin-top:6px; }
