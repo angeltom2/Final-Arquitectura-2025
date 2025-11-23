@@ -17,6 +17,8 @@ require('./models/product.model');
 require('./models/movimientoInventario.model');
 require('./models/solicitud.model');   // 👈 Solicitudes
 require('./models/cotizacion.model');  // 👈 Cotizaciones
+require('./models/valorCotizacion.model'); // nuevo
+require('./models/ordenCompra.model');     // nuevo
 
 // Rutas principales
 app.use('/api/auth', require('./routes/auth.routes'));           // Login / Registro
@@ -24,6 +26,7 @@ app.use('/api/usuarios', require('./routes/usuario.routes'));    // CRUD usuario
 app.use('/api/inventario', require('./routes/inventario.routes')); // Inventario
 app.use('/api/solicitudes', require('./routes/solicitud.routes')); // Solicitudes
 app.use('/api/cotizaciones', require('./routes/cotizacion.routes')); // Cotizaciones
+app.use('/api/director', require('./routes/director.routes')); // <-- agregar
 
 // Rutas adicionales (ej: health)
 app.use('/api', require('./routes'));
