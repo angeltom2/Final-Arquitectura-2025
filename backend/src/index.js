@@ -15,13 +15,15 @@ app.use(express.json());
 require('./models/usuario.model');
 require('./models/product.model');
 require('./models/movimientoInventario.model');
-require('./models/solicitud.model'); // 👈 IMPORTANTE
+require('./models/solicitud.model');   // 👈 Solicitudes
+require('./models/cotizacion.model');  // 👈 Cotizaciones
 
 // Rutas principales
-app.use('/api/auth', require('./routes/auth.routes'));        // Login
-app.use('/api/usuarios', require('./routes/usuario.routes')); // CRUD usuarios
+app.use('/api/auth', require('./routes/auth.routes'));           // Login / Registro
+app.use('/api/usuarios', require('./routes/usuario.routes'));    // CRUD usuarios
 app.use('/api/inventario', require('./routes/inventario.routes')); // Inventario
-app.use('/api/solicitudes', require('./routes/solicitud.routes')); // 👈 NUEVO
+app.use('/api/solicitudes', require('./routes/solicitud.routes')); // Solicitudes
+app.use('/api/cotizaciones', require('./routes/cotizacion.routes')); // Cotizaciones
 
 // Rutas adicionales (ej: health)
 app.use('/api', require('./routes'));
