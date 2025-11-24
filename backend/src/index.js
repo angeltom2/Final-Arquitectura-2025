@@ -15,20 +15,21 @@ app.use(express.json());
 require('./models/usuario.model');
 require('./models/product.model');
 require('./models/movimientoInventario.model');
-require('./models/solicitud.model');   // 👈 Solicitudes
-require('./models/cotizacion.model');  // 👈 Cotizaciones
-require('./models/valorCotizacion.model'); // nuevo
-require('./models/ordenCompra.model');     // nuevo
+require('./models/solicitud.model');
+require('./models/cotizacion.model');
+require('./models/valorCotizacion.model');
+require('./models/ordenCompra.model');
 require('./models/Plato');
 require('./models/PlatoIngrediente');
+require("./models/associations");
 
 // Rutas principales
-app.use('/api/auth', require('./routes/auth.routes'));           // Login / Registro
-app.use('/api/usuarios', require('./routes/usuario.routes'));    // CRUD usuarios
-app.use('/api/inventario', require('./routes/inventario.routes')); // Inventario
-app.use('/api/solicitudes', require('./routes/solicitud.routes')); // Solicitudes
-app.use('/api/cotizaciones', require('./routes/cotizacion.routes')); // Cotizaciones
-app.use('/api/director', require('./routes/director.routes')); // <-- agregar
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/usuarios', require('./routes/usuario.routes'));
+app.use('/api/inventario', require('./routes/inventario.routes'));
+app.use('/api/solicitudes', require('./routes/solicitud.routes'));
+app.use('/api/cotizaciones', require('./routes/cotizacion.routes'));
+app.use('/api/director', require('./routes/director.routes'));
 app.use('/api/platos', require('./routes/platos'));
 
 // Rutas adicionales (ej: health)
@@ -41,15 +42,19 @@ async function start() {
   try {
     console.log('🟡 Iniciando backend...');
 
+    // Conexión a la base de datos
     await sequelize.authenticate();
     console.log('✅ Conexión a la DB establecida.');
 
-    await sequelize.sync({ alter: true });
-    console.log('🔄 Modelos sincronizados.');
+    // ⚠️ No alterar tablas existentes para evitar errores de FK
+    await sequelize.sync({ alter: false });
+    console.log('🔄 Modelos sincronizados sin alterar tablas existentes.');
 
+    // Crear admin si no existe
     await createAdminUser();
     console.log('👑 Admin verificado.');
 
+    // Arrancar servidor
     app.listen(PORT, () => {
       console.log(`🚀 Servidor backend corriendo en puerto ${PORT}`);
     });

@@ -154,3 +154,103 @@
 .estado.aprobada { color: green; font-weight: bold; }
 .estado.rechazada { color: red; font-weight: bold; }
 .estado.completada { color: blue; font-weight: bold; }
+
+
+.ingredientes-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label-strong {
+  font-weight: 800;
+  color: #6b4432;
+}
+
+.ingrediente-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #efe1d5;
+}
+
+.ingrediente-row select {
+  flex: 1.2;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d8c6b6;
+  background: white;
+}
+
+.ingrediente-row input {
+  width: 120px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d8c6b6;
+}
+
+.ingrediente-row .remove-btn {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #b33a2c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.ingrediente-row .remove-btn:hover {
+  opacity: 0.9;
+}
+
+/* Reutiliza botones existentes, pero añade pequeñas variaciones si faltan */
+.dir-secondary {
+  background: transparent;
+  border: 1px solid #e7dbcf;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Asegurar que formulario de plato se vea consistente con el resto */
+.chef-form input[type="text"],
+.chef-form input[type="number"],
+.chef-form textarea,
+.chef-form select {
+  background: white;
+  border: 1px solid #d8c6b6;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Ajustes para botones en el nuevo formulario */
+.chef-form .submit-btn {
+  background: #7a2a18;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.chef-form .submit-btn:hover {
+  opacity: 0.95;
+}
+
+/* Mantener coherencia visual en responsive */
+@media (max-width: 900px) {
+  .ingrediente-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ingrediente-row input {
+    width: 100%;
+  }
+  .chef-sidebar {
+    display: none;
+  }
+}

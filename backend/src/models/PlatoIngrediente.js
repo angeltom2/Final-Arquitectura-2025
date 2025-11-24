@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../lib/sequelize");
+const Producto = require("./product.model");
 const Plato = require("./Plato");
 
 const PlatoIngrediente = sequelize.define("PlatoIngrediente", {
@@ -9,11 +10,11 @@ const PlatoIngrediente = sequelize.define("PlatoIngrediente", {
         primaryKey: true
     },
     plato_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false
     },
     producto_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false
     },
     cantidad: {
@@ -29,7 +30,10 @@ const PlatoIngrediente = sequelize.define("PlatoIngrediente", {
     timestamps: true
 });
 
-Plato.hasMany(PlatoIngrediente, { foreignKey: "plato_id" });
-PlatoIngrediente.belongsTo(Plato, { foreignKey: "plato_id" });
+// Relaciones
+Plato.hasMany(PlatoIngrediente, { foreignKey: "plato_id", as: "ingredientes", constraints: false });
+PlatoIngrediente.belongsTo(Plato, { foreignKey: "plato_id", as: "plato", constraints: false });
+
+PlatoIngrediente.belongsTo(Producto, { foreignKey: "producto_id", as: "producto", constraints: false });
 
 module.exports = PlatoIngrediente;
