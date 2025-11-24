@@ -22,6 +22,7 @@ require('./models/ordenCompra.model');
 require('./models/Plato');
 require('./models/PlatoIngrediente');
 require("./models/associations");
+require("./models/pedido.model");
 
 // Rutas principales
 app.use('/api/auth', require('./routes/auth.routes'));
@@ -31,6 +32,7 @@ app.use('/api/solicitudes', require('./routes/solicitud.routes'));
 app.use('/api/cotizaciones', require('./routes/cotizacion.routes'));
 app.use('/api/director', require('./routes/director.routes'));
 app.use('/api/platos', require('./routes/platos'));
+app.use('/api/pedidos', require('./routes/pedido.routes'));
 
 // Rutas adicionales (ej: health)
 app.use('/api', require('./routes'));
