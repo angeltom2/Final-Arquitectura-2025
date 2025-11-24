@@ -259,7 +259,7 @@ export default function DirectorComercialPanel() {
     <div className="dir-layout">
       <aside className="dir-sidebar">
         <div>
-          <div className="dir-title">Director</div>
+          <div className="dir-title">Director de Compras</div>
 
           <nav>
             <ul>
@@ -320,7 +320,7 @@ export default function DirectorComercialPanel() {
           {activeTab === "listado" && (
             <div className="card">
               <div className="card-head">
-                <h2>Lista de cotizaciones</h2>
+                <h2></h2>
                 <div>
                   <button className="dir-small" onClick={handleRefresh} disabled={loading}>
                     {loading ? "..." : "Refrescar"}
@@ -393,7 +393,7 @@ export default function DirectorComercialPanel() {
           {activeTab === "detalle" && selected && (
             <div className="card detail-card">
               <div className="card-head">
-                <h2>Detalle — Cotización #{selected.id}</h2>
+                <h2>{selected.id}</h2>
                 <div className="meta-row">
                   <span>
                     <strong>Proveedor:</strong> {selected.proveedor}
@@ -424,13 +424,26 @@ export default function DirectorComercialPanel() {
                   </div>
 
                   <div className="detail-right">
-                    <h3>Acciones</h3>
+                    <h3 style={{ marginBottom: "12px", fontSize: "1.1rem" }}>Acciones</h3>
+
                     <div className="actions-stack">
-                      <button className="dir-btn" onClick={() => setActiveTab("registrar")}>
+                      {/* Registrar valores */}
+                      <button
+                        className="dir-btn"
+                        onClick={() => setActiveTab("registrar")}
+                        style={{ marginBottom: "10px", width: "100%" }}
+                      >
                         Registrar valores
                       </button>
 
-                      <div className="validate-group">
+                      {/* Grupo de validaciones */}
+                      <div className="validate-group" style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "8px",
+                        marginBottom: "10px",
+                        flexWrap: "wrap"
+                      }}>
                         <button className="dir-accept" onClick={() => handleValidar("opcionada")}>
                           Opcionada
                         </button>
@@ -442,7 +455,12 @@ export default function DirectorComercialPanel() {
                         </button>
                       </div>
 
-                      <button className="dir-secondary" onClick={handleGenerarOC}>
+                      {/* Generar Orden */}
+                      <button
+                        className="dir-secondary"
+                        onClick={handleGenerarOC}
+                        style={{ width: "100%" }}
+                      >
                         Generar Orden
                       </button>
                     </div>
@@ -455,7 +473,7 @@ export default function DirectorComercialPanel() {
           {activeTab === "registrar" && selected && (
             <div className="card">
               <div className="card-head">
-                <h2>Registrar valores — Cotización #{selected.id}</h2>
+                <h2>{selected.id}</h2>
                 <div className="meta-row">
                   <span>
                     <strong>Proveedor:</strong> {selected.proveedor}
