@@ -6,7 +6,7 @@ const { verifyToken, verifyRole } = require('../middlewares/authMiddleware');
 
 // Solo director_comercial y admin
 router.use(verifyToken);
-router.use(verifyRole(['director_comercial', 'admin']));
+router.use(verifyRole(['dir_compras', 'admin']));
 
 // Registrar valores para una cotización (POST)
 router.post('/cotizacion/:id/registrar-valores', directorCtrl.registrarValores);

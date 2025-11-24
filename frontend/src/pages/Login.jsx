@@ -40,8 +40,11 @@ export default function Login() {
         case "aux_compras":
           navigate("/aux-compras");
           break;
-        case "director_comercial":
-          navigate("/director-comercial");
+        case "dir_compras":
+          navigate("/dir-compras");
+          break;
+        case "dir_comercial":
+          navigate("/dir-comercial");
           break;
         default:
           navigate("/");
@@ -72,6 +75,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+
           <input
             type="password"
             placeholder="Contraseña"
@@ -79,6 +83,7 @@ export default function Login() {
             onChange={(e) => setContraseña(e.target.value)}
             required
           />
+
           <button type="submit">Iniciar Sesión</button>
         </form>
       </div>

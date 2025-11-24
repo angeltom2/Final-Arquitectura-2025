@@ -4,6 +4,7 @@ import AdminPanel from "./pages/AdminPanel";
 import JefeCocinaPanel from "./pages/JefeCocinaPanel";
 import MeseroPanel from "./pages/MeseroPanel";
 import AuxComprasPanel from "./pages/AuxComprasPanel";
+import DirectorComprasPanel from "./pages/DirectorComprasPanel";
 import DirectorComercialPanel from "./pages/DirectorComercialPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -53,11 +54,21 @@ function App() {
           }
         />
 
+        {/* DIRECTOR DE COMPRAS */}
+        <Route
+          path="/dir-compras"
+          element={
+            <ProtectedRoute allowedRoles={["dir_compras", "admin"]}>
+              <DirectorComprasPanel />
+            </ProtectedRoute>
+          }
+        />
+
         {/* DIRECTOR COMERCIAL */}
         <Route
-          path="/director-comercial"
+          path="/dir-comercial"
           element={
-            <ProtectedRoute allowedRoles={["director_comercial", "admin"]}>
+            <ProtectedRoute allowedRoles={["dir_comercial", "admin"]}>
               <DirectorComercialPanel />
             </ProtectedRoute>
           }

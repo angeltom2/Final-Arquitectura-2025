@@ -7,8 +7,8 @@ router.use(verifyToken);
 
 // Auxiliar puede crear y listar
 router.post('/', verifyRole(['aux_compras', 'admin']), cotizacionCtrl.createCotizacion);
-router.get('/', verifyRole(['aux_compras', 'admin']), cotizacionCtrl.getCotizaciones);
-router.get('/:id', verifyRole(['aux_compras', 'admin']), cotizacionCtrl.getCotizacion);
+router.get('/', verifyRole(['aux_compras', 'admin','dir_compras']), cotizacionCtrl.getCotizaciones);
+router.get('/:id', verifyRole(['aux_compras', 'admin','dir_compras']), cotizacionCtrl.getCotizacion);
 
 // Enviar / actualizar estado
 router.put('/:id/estado', verifyRole(['admin','aux_compras']), cotizacionCtrl.updateEstado);
