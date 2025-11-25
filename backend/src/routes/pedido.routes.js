@@ -8,8 +8,8 @@ const { verifyToken, verifyRole } = require("../middlewares/authMiddleware");
 router.use(verifyToken);
 
 // CRUD de pedidos
-router.get("/", pedidoCtrl.getPedidos); // listar todos
-router.get("/:id", pedidoCtrl.getPedido); // obtener 1
+router.get("/",verifyRole(["admin", "mesero"]), pedidoCtrl.getPedidos); // listar todos
+router.get("/:id",verifyRole(["admin", "mesero"]), pedidoCtrl.getPedido); // obtener 1
 router.post("/", verifyRole(["admin", "mesero"]), pedidoCtrl.crearPedido); // crear pedido
 router.put("/:id", verifyRole(["admin", "mesero"]), pedidoCtrl.actualizarPedido); // actualizar pedido
 router.delete("/:id", verifyRole(["admin", "mesero"]), pedidoCtrl.eliminarPedido); // eliminar pedido
