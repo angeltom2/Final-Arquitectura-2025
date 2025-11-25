@@ -6,10 +6,10 @@ const { verifyToken, verifyRole } = require("../middlewares/authMiddleware");
 router.use(verifyToken);
 
 // Crear plato
-router.post("/", verifyRole(["jefe_cocina", "admin"]), platoCtrl.createPlato);
+router.post("/", verifyRole(["jefe_cocina", "admin", "dir_comercial"]), platoCtrl.createPlato);
 
 // Listar todos los platos
-router.get("/", verifyRole(["jefe_cocina", "admin", "mesero"]), platoCtrl.getPlatos);
+router.get("/", verifyRole(["jefe_cocina", "admin", "mesero", "dir_comercial"]), platoCtrl.getPlatos);
 
 // Obtener un plato por ID
 router.get("/:id", verifyRole(["jefe_cocina", "admin", "mesero"]), platoCtrl.getPlatoById);
