@@ -6,6 +6,7 @@ import MeseroPanel from "./pages/MeseroPanel";
 import AuxComprasPanel from "./pages/AuxComprasPanel";
 import DirectorComprasPanel from "./pages/DirectorComprasPanel";
 import DirectorComercialPanel from "./pages/DirectorComercialPanel";
+import CocineroPanel from "./pages/CocineroPanel"; // Nuevo componente
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -70,6 +71,16 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["dir_comercial", "admin"]}>
               <DirectorComercialPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* COCINERO */}
+        <Route
+          path="/cocinero"
+          element={
+            <ProtectedRoute allowedRoles={["cocinero", "admin"]}>
+              <CocineroPanel />
             </ProtectedRoute>
           }
         />

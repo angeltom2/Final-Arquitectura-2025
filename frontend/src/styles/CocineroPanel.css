@@ -1,0 +1,131 @@
+/* Manteniendo la estética que ya definiste */
+
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: #fffaf0;
+}
+
+.sidebar {
+  width: 230px;
+  background: #fff8ef;
+  border-right: 2px solid #f1e2d2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  color: #7a2a18;
+  margin-bottom: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #6b4432;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+  background: #f7d4b6;
+  color: #7a2a18;
+}
+
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.logout-btn {
+  background: #b33a2c;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}
+
+.btn-recargar {
+  background: #2980b9;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-recargar:hover {
+  background: #3498db;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.pedidos-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pedidos-table th,
+.pedidos-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.pedidos-table th {
+  background-color: #7a2a18;
+  color: #fff;
+}
+
+.pedido-pendiente {
+  background-color: #fce4e4;
+}
+
+.pedido-aceptado {
+  background-color: #fff3cd;
+}
+
+.pedido-listo {
+  background-color: #e8f5e9;
+}
+
+.btn-listo {
+  padding: 6px 12px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-listo:hover {
+  background-color: #2ecc71;
+}

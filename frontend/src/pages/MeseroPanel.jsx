@@ -19,9 +19,19 @@ export default function MeseroPanel() {
   const [pedidoEditando, setPedidoEditando] = useState(null);
 
   useEffect(() => {
+    // Carga inicial
     cargarPlatos();
     cargarPedidos();
+
+    // Actualización automática cada 5 segundos
+    const interval = setInterval(() => {
+      cargarPedidos();
+    }, 5000); // 5000 ms = 5 segundos
+
+    // Limpiar el intervalo al desmontar el componente
+    return () => clearInterval(interval);
   }, []);
+
 
   // -------------------------
   // Helpers para respuesta flexible
@@ -352,13 +362,13 @@ export default function MeseroPanel() {
                             </tr>
                           </thead>
                           <tbody>
-                            { (p.detalle || p.DetallePedidos || []).map((d) => (
+                            {(p.detalle || p.DetallePedidos || []).map((d) => (
                               <tr key={d.id}>
                                 <td>{(d.plato && d.plato.nombre) || platos.find(x => x.id === d.platoId)?.nombre || "Plato eliminado"}</td>
                                 <td>{d.cantidad}</td>
                                 <td>{d.precio_unitario ?? (platos.find(x => x.id === d.platoId)?.precio_venta ?? "-")}</td>
                               </tr>
-                            )) }
+                            ))}
                           </tbody>
                         </table>
                       </div>

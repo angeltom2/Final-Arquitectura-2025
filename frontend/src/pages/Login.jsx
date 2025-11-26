@@ -37,6 +37,9 @@ export default function Login() {
         case "mesero":
           navigate("/mesero");
           break;
+        case "cocinero":            // <-- agregar este caso
+          navigate("/cocinero");
+          break;
         case "aux_compras":
           navigate("/aux-compras");
           break;
