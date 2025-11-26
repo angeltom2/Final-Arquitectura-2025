@@ -111,3 +111,51 @@ exports.getMovimientos = async (req, res) => {
     res.status(500).json({ message: "Error al obtener movimientos" });
   }
 };
+
+// ✏️ Editar producto (solo admin)
+exports.editarProducto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre, categoria, unidad, stock_actual, stock_minimo, precio_unitario } = req.body;
+
+    const producto = await Producto.findByPk(id);
+    if (!producto) return res.status(404).json({ message: "Producto no encontrado" });
+
+    // Validar si el nuevo nombre ya existe en otro producto
+    if (nombre && nombre !== producto.nombre) {
+      const nombreExistente = await Producto.findOne({ where: { nombre } });
+      if (nombreExistente) return res.status(400).json({ message: "El nombre ya está en uso" });
+    }
+
+    await producto.update({
+      nombre: nombre ?? producto.nombre,
+      categoria: categoria ?? producto.categoria,
+      unidad: unidad ?? producto.unidad,
+      stock_actual: stock_actual ?? producto.stock_actual,
+      stock_minimo: stock_minimo ?? producto.stock_minimo,
+      precio_unitario: precio_unitario ?? producto.precio_unitario,
+    });
+
+    res.json({ message: "Producto actualizado correctamente", producto });
+  } catch (error) {
+    console.error("Error al editar producto:", error);
+    res.status(500).json({ message: "Error al editar producto" });
+  }
+};
+
+// 🗑 Eliminar producto (solo admin)
+exports.eliminarProducto = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const producto = await Producto.findByPk(id);
+    if (!producto) return res.status(404).json({ message: "Producto no encontrado" });
+
+    await producto.destroy();
+
+    res.json({ message: "Producto eliminado correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar producto:", error);
+    res.status(500).json({ message: "Error al eliminar producto" });
+  }
+};

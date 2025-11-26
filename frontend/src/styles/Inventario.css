@@ -1,90 +1,117 @@
 .inventario-container {
-  background: #fffaf0;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  font-family: "Poppins", sans-serif;
-  color: #4a3b2c;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #6b4432;
+  background-color: #fffaf0;
 }
 
 .inventario-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
   color: #7a2a18;
-  margin-bottom: 1rem;
 }
 
 .inventario-section {
-  margin-top: 25px;
+  background-color: #fff8ef;
   padding: 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #f1e2d2;
 }
 
 .inventario-section h2 {
-  color: #b33a2c;
   margin-bottom: 15px;
-}
-
-.inventario-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  color: #7a2a18;
 }
 
 .inventario-form input,
 .inventario-form select {
-  flex: 1;
-  min-width: 180px;
+  width: calc(100% - 20px);
   padding: 10px;
-  border: 1px solid #e6dcd3;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #f1e2d2;
+  font-size: 14px;
+  background-color: #fffaf0;
+  color: #6b4432;
+}
+
+.inventario-form input:focus,
+.inventario-form select:focus {
+  outline: none;
+  border-color: #7a2a18;
 }
 
 .inventario-form button {
-  background: #7a2a18;
-  color: white;
-  padding: 10px 15px;
+  padding: 10px 20px;
+  background-color: #7a2a18;
+  color: #fff;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .inventario-form button:hover {
-  background: #9c3a26;
+  background-color: #6b4432;
 }
 
-/* Tabla */
 .inventario-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+}
+
+.inventario-table th,
+.inventario-table td {
+  padding: 12px;
+  border: 1px solid #f1e2d2;
+  text-align: center;
 }
 
 .inventario-table th {
-  background-color: #b33a2c;
-  color: white;
-  padding: 10px;
-  text-align: left;
-  text-transform: uppercase;
-}
-
-.inventario-table td {
-  padding: 10px;
-  border-bottom: 1px solid #f0e7da;
+  background-color: #7a2a18;
+  color: #fff;
 }
 
 .low-stock {
-  background-color: #ffe6e6;
+  background-color: #f7d4b6;
 }
 
 .ok-stock {
-  background-color: #fff;
+  background-color: #fffaf0;
 }
 
-.low-stock td {
-  color: #b33a2c;
+.btn-editar,
+.btn-eliminar {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 0 2px;
+  cursor: pointer;
+  font-size: 12px;
   font-weight: bold;
+}
+
+.btn-editar {
+  background-color: #2980b9;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.btn-editar:hover {
+  background-color: #3498db;
+}
+
+.btn-eliminar {
+  background-color: #b33a2c;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.btn-eliminar:hover {
+  background-color: #e74c3c;
 }

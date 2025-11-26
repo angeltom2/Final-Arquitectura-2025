@@ -21,6 +21,8 @@ export default function Inventario() {
     descripcion: "",
   });
 
+  const [editProducto, setEditProducto] = useState(null);
+
   // 📦 Cargar productos
   const fetchProductos = async () => {
     try {
@@ -34,6 +36,19 @@ export default function Inventario() {
   useEffect(() => {
     fetchProductos();
   }, []);
+
+  // ⚠️ Alerta de inventario bajo
+  useEffect(() => {
+    productos.forEach((p) => {
+      if (p.stock_actual <= p.stock_minimo) {
+        Swal.fire({
+          icon: "warning",
+          title: "Inventario bajo",
+          text: `El producto "${p.nombre}" ha alcanzado el stock mínimo`,
+        });
+      }
+    });
+  }, [productos]);
 
   // ➕ Crear producto
   const handleCrearProducto = async (e) => {
@@ -51,7 +66,11 @@ export default function Inventario() {
       });
       fetchProductos();
     } catch (err) {
-      Swal.fire("Error", err.response?.data?.message || "No se pudo crear el producto", "error");
+      Swal.fire(
+        "Error",
+        err.response?.data?.message || "No se pudo crear el producto",
+        "error"
+      );
     }
   };
 
@@ -69,7 +88,79 @@ export default function Inventario() {
       });
       fetchProductos();
     } catch (err) {
-      Swal.fire("Error", err.response?.data?.message || "No se pudo registrar el movimiento", "error");
+      Swal.fire(
+        "Error",
+        err.response?.data?.message || "No se pudo registrar el movimiento",
+        "error"
+      );
+    }
+  };
+
+  // ✏️ Editar producto
+  const handleEditarProducto = async (p) => {
+    const { value: formValues } = await Swal.fire({
+      title: "Editar producto",
+      html:
+        `<input id="swal-nombre" class="swal2-input" placeholder="Nombre" value="${p.nombre}">` +
+        `<input id="swal-categoria" class="swal2-input" placeholder="Categoría" value="${p.categoria}">` +
+        `<input id="swal-unidad" class="swal2-input" placeholder="Unidad" value="${p.unidad}">` +
+        `<input id="swal-stock" type="number" class="swal2-input" placeholder="Stock actual" value="${p.stock_actual}">` +
+        `<input id="swal-precio" type="number" class="swal2-input" placeholder="Precio unitario" value="${p.precio_unitario}">`,
+      focusConfirm: false,
+      showCancelButton: true,
+      preConfirm: () => {
+        return {
+          nombre: document.getElementById("swal-nombre").value,
+          categoria: document.getElementById("swal-categoria").value,
+          unidad: document.getElementById("swal-unidad").value,
+          stock_actual: Number(document.getElementById("swal-stock").value),
+          precio_unitario: Number(document.getElementById("swal-precio").value),
+          stock_minimo: Math.ceil(
+            Number(document.getElementById("swal-stock").value) * 0.25
+          ),
+        };
+      },
+    });
+
+    if (formValues) {
+      try {
+        await api.put(`/inventario/${p.id}`, formValues);
+        Swal.fire("Éxito", "Producto actualizado correctamente", "success");
+        fetchProductos();
+      } catch (err) {
+        Swal.fire(
+          "Error",
+          err.response?.data?.message || "No se pudo editar el producto",
+          "error"
+        );
+      }
+    }
+  };
+
+  // 🗑 Eliminar producto
+  const handleEliminarProducto = async (p) => {
+    const result = await Swal.fire({
+      title: `Eliminar ${p.nombre}?`,
+      text: "No podrás revertir esta acción",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, eliminar",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`/inventario/${p.id}`);
+        Swal.fire("Eliminado", "Producto eliminado correctamente", "success");
+        fetchProductos();
+      } catch (err) {
+        Swal.fire(
+          "Error",
+          err.response?.data?.message || "No se pudo eliminar el producto",
+          "error"
+        );
+      }
     }
   };
 
@@ -111,7 +202,13 @@ export default function Inventario() {
             placeholder="Stock inicial"
             value={nuevoProducto.stock_actual}
             onChange={(e) =>
-              setNuevoProducto({ ...nuevoProducto, stock_actual: e.target.value })
+              setNuevoProducto({
+                ...nuevoProducto,
+                stock_actual: e.target.value,
+                stock_minimo: e.target.value
+                  ? Math.ceil(Number(e.target.value) * 0.25)
+                  : "",
+              })
             }
             required
           />
@@ -119,10 +216,7 @@ export default function Inventario() {
             type="number"
             placeholder="Stock mínimo"
             value={nuevoProducto.stock_minimo}
-            onChange={(e) =>
-              setNuevoProducto({ ...nuevoProducto, stock_minimo: e.target.value })
-            }
-            required
+            readOnly
           />
           <input
             type="number"
@@ -199,6 +293,7 @@ export default function Inventario() {
               <th>Stock Actual</th>
               <th>Stock Mínimo</th>
               <th>Precio Unitario</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -215,6 +310,20 @@ export default function Inventario() {
                 <td>{p.stock_actual}</td>
                 <td>{p.stock_minimo}</td>
                 <td>${p.precio_unitario}</td>
+                <td>
+                  <button
+                    className="btn-editar"
+                    onClick={() => handleEditarProducto(p)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="btn-eliminar"
+                    onClick={() => handleEliminarProducto(p)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -1,4 +1,3 @@
-// backend/src/routes/inventario.routes.js
 const express = require("express");
 const router = express.Router();
 const inventarioCtrl = require("../controllers/inventario.controller");
@@ -15,6 +14,20 @@ router.post(
   "/", 
   verifyRole(["admin"]),
   inventarioCtrl.crearProducto
+);
+
+// ✏️ Editar producto (solo admin)
+router.put(
+  "/:id",
+  verifyRole(["admin"]),
+  inventarioCtrl.editarProducto
+);
+
+// 🗑 Eliminar producto (solo admin)
+router.delete(
+  "/:id",
+  verifyRole(["admin"]),
+  inventarioCtrl.eliminarProducto
 );
 
 // 🧾 Registrar movimiento (solo admin, jefe cocina, auxiliar de compras)
