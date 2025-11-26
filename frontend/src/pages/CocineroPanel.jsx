@@ -17,27 +17,29 @@ export default function CocineroPanel() {
     }
   };
 
-  // Actualización automática cada 5 segundos
+  // Auto refresco cada 5s
   useEffect(() => {
     fetchPedidos();
     const interval = setInterval(fetchPedidos, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  // Marcar pedido como listo
-  const marcarListo = async (pedidoId) => {
+  // Cambiar estado dinámicamente
+  const cambiarEstado = async (pedidoId, nuevoEstado) => {
+    if (!nuevoEstado) return;
+
     const confirm = await Swal.fire({
-      title: "¿Marcar pedido como listo?",
+      title: `¿Cambiar estado a "${nuevoEstado}"?`,
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Sí, listo",
+      confirmButtonText: "Sí, cambiar",
       cancelButtonText: "Cancelar",
     });
 
     if (confirm.isConfirmed) {
       try {
-        const res = await api.put(`/cocinero/pedidos/${pedidoId}/listo`);
-        Swal.fire("¡Listo!", res.data.message, "success");
+        const res = await api.put(`/cocinero/pedidos/${pedidoId}/${nuevoEstado}`);
+        Swal.fire("¡Actualizado!", res.data.message, "success");
         fetchPedidos();
       } catch (err) {
         Swal.fire(
@@ -83,9 +85,10 @@ export default function CocineroPanel() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main */}
       <div className="main-content">
         <h1>Pedidos Pendientes</h1>
+
         {pedidos.length === 0 ? (
           <p>No hay pedidos disponibles</p>
         ) : (
@@ -99,27 +102,26 @@ export default function CocineroPanel() {
                 <th>Acción</th>
               </tr>
             </thead>
+
             <tbody>
               {pedidos.map((p) => {
                 const totalCalculado = p.detalle.reduce(
-                  (acc, d) => acc + (d.precio_unitario || d.plato?.precio_venta || 0) * d.cantidad,
+                  (acc, d) =>
+                    acc +
+                    (d.precio_unitario || d.plato?.precio_venta || 0) * d.cantidad,
                   0
                 );
 
                 return (
-                  <tr
-                    key={p.id}
-                    className={
-                      p.estado === "pendiente"
-                        ? "pedido-pendiente"
-                        : p.estado === "listo"
-                        ? "pedido-listo"
-                        : "pedido-aceptado"
-                    }
-                  >
+                  <tr key={p.id} className={`pedido-${p.estado}`}>
                     <td>{p.mesa}</td>
-                    <td>{p.estado}</td>
+                    <td className="estado-col">
+                      <span className={`estado-tag estado-${p.estado}`}>
+                        {p.estado}
+                      </span>
+                    </td>
                     <td>${totalCalculado}</td>
+
                     <td>
                       <ul>
                         {p.detalle.map((d) => (
@@ -130,14 +132,20 @@ export default function CocineroPanel() {
                         ))}
                       </ul>
                     </td>
+
                     <td>
-                      <button
-                        className="btn-listo"
-                        onClick={() => marcarListo(p.id)}
-                        disabled={p.estado === "listo"}
+                      <select
+                        className="estado-select"
+                        defaultValue=""
+                        onChange={(e) => cambiarEstado(p.id, e.target.value)}
                       >
-                        {p.estado === "listo" ? "✔ Listo" : "Marcar como listo"}
-                      </button>
+                        <option value="" disabled>
+                          Cambiar estado...
+                        </option>
+                        <option value="listo">Listo</option>
+                        <option value="retrasado">Retrasado</option>
+                        <option value="espera">En espera</option>
+                      </select>
                     </td>
                   </tr>
                 );
@@ -149,4 +157,3 @@ export default function CocineroPanel() {
     </div>
   );
 }
-

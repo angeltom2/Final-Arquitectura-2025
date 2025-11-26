@@ -1,5 +1,4 @@
-/* Manteniendo la estética que ya definiste */
-
+/* Layout general */
 .admin-layout {
   display: flex;
   height: 100vh;
@@ -7,6 +6,7 @@
   background: #fffaf0;
 }
 
+/* Sidebar */
 .sidebar {
   width: 230px;
   background: #fff8ef;
@@ -44,12 +44,6 @@
   color: #7a2a18;
 }
 
-.sidebar-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .logout-btn {
   background: #b33a2c;
   color: white;
@@ -60,32 +54,18 @@
   cursor: pointer;
   transition: 0.3s;
 }
-
 .logout-btn:hover {
   opacity: 0.9;
 }
 
-.btn-recargar {
-  background: #2980b9;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-recargar:hover {
-  background: #3498db;
-}
-
+/* Main */
 .main-content {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
 }
 
+/* Tabla */
 .pedidos-table {
   width: 100%;
   border-collapse: collapse;
@@ -103,29 +83,54 @@
   color: #fff;
 }
 
+/* Colores por estado */
 .pedido-pendiente {
-  background-color: #fce4e4;
+  background-color: #fff3f3;
 }
 
 .pedido-aceptado {
-  background-color: #fff3cd;
+  background-color: #fff7d6;
 }
 
 .pedido-listo {
-  background-color: #e8f5e9;
+  background-color: #e7ffe7;
 }
 
-.btn-listo {
-  padding: 6px 12px;
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.pedido-retrasado {
+  background-color: #ffe1c0;
+}
+
+.pedido-espera {
+  background-color: #e2e6ff;
+}
+
+/* Etiquetas de estado */
+.estado-tag {
+  padding: 5px 10px;
+  border-radius: 14px;
+  font-size: 0.9rem;
   font-weight: bold;
-  transition: 0.3s;
+  text-transform: capitalize;
+  color: white;
 }
 
-.btn-listo:hover {
-  background-color: #2ecc71;
+.estado-pendiente { background: #e74c3c; }
+.estado-aceptado { background: #f1c40f; }
+.estado-listo { background: #27ae60; }
+.estado-retrasado { background: #d35400; }
+.estado-espera { background: #2980b9; }
+
+/* Selector */
+.estado-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-weight: bold;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.estado-select:hover {
+  border-color: #7a2a18;
 }
