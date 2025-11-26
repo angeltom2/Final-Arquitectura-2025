@@ -32,7 +32,8 @@ const Usuario = sequelize.define('Usuario', {
       'mesero',
       'aux_compras',
       'dir_compras',
-      'dir_comercial'
+      'dir_comercial',
+      'cocinero'   // <-- nuevo rol agregado
     ),
     allowNull: false,
     defaultValue: 'mesero'

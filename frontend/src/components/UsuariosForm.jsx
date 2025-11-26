@@ -103,6 +103,7 @@ export default function UsuarioForm({ onSave, editingUser, setEditingUser }) {
         <option value="aux_compras">Auxiliar de Compras</option>
         <option value="dir_compras">Director Área de Compras</option>
         <option value="dir_comercial">Director Comercial</option>
+        <option value="cocinero">Cocinero</option> 
       </select>
 
       {editingUser && (
