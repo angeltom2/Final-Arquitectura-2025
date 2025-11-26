@@ -14,4 +14,10 @@ router.get("/pedidos", cocineroCtrl.getPedidosPendientes);
 // ✅ Marcar un pedido como listo
 router.put("/pedidos/:id/listo", cocineroCtrl.marcarPedidoListo);
 
+// ✅ NUEVO → Marcar como retrasado
+router.put("/pedidos/:id/retrasado", cocineroCtrl.marcarPedidoRetrasado);
+
+// ✅ NUEVO → Marcar como en espera
+router.put("/pedidos/:id/espera", cocineroCtrl.marcarPedidoEnEspera);
+
 module.exports = router;
