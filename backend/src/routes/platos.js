@@ -9,13 +9,13 @@ router.use(verifyToken);
 router.post("/", verifyRole(["jefe_cocina", "admin", "dir_comercial"]), platoCtrl.createPlato);
 
 // Listar todos los platos
-router.get("/", verifyRole(["jefe_cocina", "admin", "mesero", "dir_comercial"]), platoCtrl.getPlatos);
+router.get("/", verifyRole(["jefe_cocina", "admin", "mesero", "dir_comercial","cocinero"]), platoCtrl.getPlatos);
 
 // Obtener un plato por ID
-router.get("/:id", verifyRole(["jefe_cocina", "admin", "mesero"]), platoCtrl.getPlatoById);
+router.get("/:id", verifyRole(["jefe_cocina", "admin", "mesero","cocinero"]), platoCtrl.getPlatoById);
 
 // Actualizar plato
-router.put("/:id", verifyRole(["jefe_cocina", "admin"]), platoCtrl.updatePlato);
+router.put("/:id", verifyRole(["jefe_cocina", "admin","cocinero"]), platoCtrl.updatePlato);
 
 // Eliminar plato
 router.delete("/:id", verifyRole(["jefe_cocina", "admin"]), platoCtrl.deletePlato);

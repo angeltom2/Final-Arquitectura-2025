@@ -34,6 +34,7 @@ app.use('/api/director', require('./routes/director.routes'));
 app.use('/api/platos', require('./routes/platos'));
 app.use('/api/pedidos', require('./routes/pedido.routes'));
 app.use("/api/analitica", require("./routes/dirComercial.routes"));
+app.use("/api/cocinero", require("./routes/cocinero.routes"));
 
 // Rutas adicionales (ej: health)
 app.use('/api', require('./routes'));
